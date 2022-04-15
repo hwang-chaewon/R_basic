@@ -3,20 +3,20 @@ install.packages("party")
 library(party)
 
 
-# ¾ÆÀÌ¸®½º µ¥ÀÌÅÍ
+# ì•„ì´ë¦¬ìŠ¤ ë°ì´í„°
 data(iris)
 str(iris)  #structure
 iris
 
-set.seed(1234)  # »ùÇÃ ÃßÃâ°ª °íÁ¤
+set.seed(1234)  # ìƒ˜í”Œ ì¶”ì¶œê°’ ê³ ì •
 
 ind <- sample(2, nrow(iris), replace=TRUE, prob=c(0.7, 0.3)) 
              #sampling takes place from 1:2
-#¿©±â¼­ ind¸¦ Ãâ·ÂÇÏ¸é 1¶Ç´Â 2·Î µÅÀÖ´Ù. 1Àº training, 2´Â test¸¦ ÀÇ¹ÌÇÑ´Ù.
+#ì—¬ê¸°ì„œ indë¥¼ ì¶œë ¥í•˜ë©´ 1ë˜ëŠ” 2ë¡œ ë¼ìˆë‹¤. 1ì€ training, 2ëŠ” testë¥¼ ì˜ë¯¸í•œë‹¤.
 trainData <- iris[ind==1,]
 testData <- iris[ind==2,]
 
-#Decision tree »ı¼º
+#Decision tree ìƒì„±
 iris_ctree <- ctree(Species ~ Sepal.Length + Sepal.Width 
                     + Petal.Length + Petal.Width, data=trainData)
  
@@ -30,22 +30,22 @@ plot(iris_ctree, type="simple")
 #Classificatioin with test set
 testPred <- predict(iris_ctree, newdata = testData)
 
-#ºĞ·ù°á°ú plotting
+#ë¶„ë¥˜ê²°ê³¼ plotting
 testPred
 plot(testPred)
 
 predict_table <- table(testPred, testData$Species)
-names(dimnames(predict_table)) <- c("predicted", "observed")#¿ŞÂÊ: predicted, ¿À¸¥ÂÊ: ½ÇÁ¦ °üÃø°ª
+names(dimnames(predict_table)) <- c("predicted", "observed")#ì™¼ìª½: predicted, ì˜¤ë¥¸ìª½: ì‹¤ì œ ê´€ì¸¡ê°’
 predict_table
-#º¸¸é setosa, versicolor´Â ºĞ·ù°¡ ¿Ïº®È÷ µÇ¾ú´Âµ¥ virginica¿¡¼­ ¿À·ù°¡ ³µÀ½À» º¼ ¼ö ÀÖ´Ù.
+#ë³´ë©´ setosa, versicolorëŠ” ë¶„ë¥˜ê°€ ì™„ë²½íˆ ë˜ì—ˆëŠ”ë° virginicaì—ì„œ ì˜¤ë¥˜ê°€ ë‚¬ìŒì„ ë³¼ ìˆ˜ ìˆë‹¤.
 
 
-#¿¹Ãø °á°ú¿Í ½ÇÁ¦ µ¥ÀÌÅÍÀÇ Á¤È®µµ È®ÀÎ
+#ì˜ˆì¸¡ ê²°ê³¼ì™€ ì‹¤ì œ ë°ì´í„°ì˜ ì •í™•ë„ í™•ì¸
 sum(testPred==testData$Species)/length(testPred)*100
 
 
 
-###### Àü¸³¼± ¾Ï µ¥ÀÌÅÍ ########
+###### ì „ë¦½ì„  ì•” ë°ì´í„° ########
 
 rm(list = ls())
 install.packages("rpart")
@@ -57,7 +57,7 @@ str(stagec)
 stagec1<- subset(stagec, !is.na(g2))
 stagec2<- subset(stagec1, !is.na(gleason))
 stagec3<- subset(stagec2, !is.na(eet))
-str(stagec3) #stagec3°³¼ö¸¦ ¼¼ º¸¸é 134°³°¡ ³ª¿Ã °Í
+str(stagec3) #stagec3ê°œìˆ˜ë¥¼ ì„¸ ë³´ë©´ 134ê°œê°€ ë‚˜ì˜¬ ê²ƒ
 
 set.seed(1234)
 ind <- sample(2, nrow(stagec3), replace=TRUE, prob=c(0.7, 0.3))
@@ -76,7 +76,7 @@ predict_table <- table(testPred, testData$ploidy)
 names(dimnames(predict_table)) <- c("predicted", "observed")	
 predict_table
 
-#¿¹Ãø °á°ú¿Í ½ÇÁ¦ µ¥ÀÌÅÍÀÇ Á¤È®µµ È®ÀÎ
+#ì˜ˆì¸¡ ê²°ê³¼ì™€ ì‹¤ì œ ë°ì´í„°ì˜ ì •í™•ë„ í™•ì¸
 sum(testPred==testData$ploidy)/length(testPred)*100
 
 
